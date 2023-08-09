@@ -40,3 +40,9 @@ lspconfig.gopls.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
+
+lspconfig.terraformls.setup({
+	filetypes = { "terraform" }, -- disable terraform-vars because of bug
+	capabilities = capabilities,
+	on_attach = on_attach,
+})

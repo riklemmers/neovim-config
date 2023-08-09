@@ -12,3 +12,13 @@ vim.keymap.set("n", "<C-n>", "<cmd> NvimTreeToggle <CR>")
 vim.keymap.set("n", "<leader>e", "<cmd> NvimTreeFocus <CR>")
 
 vim.keymap.set("t", "<C-space>", "<C-\\><C-n>")
+
+-- Fix :GBrowse for vim-fugitive because netrw is disabled.
+vim.api.nvim_create_user_command('Browse', function(opts)
+    local cmd = string.format("!open %s",
+        vim.fn.shellescape(opts.args, 1)
+    )
+    vim.fn.execute(cmd)
+end,
+{ nargs = 1 }
+)

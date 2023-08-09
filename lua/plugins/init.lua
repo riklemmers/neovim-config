@@ -19,7 +19,7 @@ local plugins = {
 		"williamboman/mason.nvim",
 		lazy = false,
 		opts = {
-			ensure_installed = { "lua_ls", "gopls" },
+			ensure_installed = { "lua_ls", "gopls", "terraform-ls" },
 		},
 	},
 	{
@@ -84,6 +84,17 @@ local plugins = {
 			return require("plugins.configs.nvim-tree")
 		end,
 	},
+	{
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.2",
+		keys = {
+			{ "<leader>ff", function() require("telescope.builtin").find_files() end },
+			{ "<leader>fg", function() require("telescope.builtin").live_grep() end },
+			{ "<leader>fb", function() require("telescope.builtin").buffers() end },
+			{ "<leader>fh", function() require("telescope.builtin").help_tags() end },
+			{ "<leader>fr", function() require("telescope.builtin").lsp_references() end },
+		},
+	},
 
 	-- Code editing
 	{
@@ -109,6 +120,9 @@ local plugins = {
 	-- GIT
 	{
 		"tpope/vim-fugitive"
+	},
+	{
+		"cedarbaum/fugitive-azure-devops.vim",
 	},
 	{
 		"lewis6991/gitsigns.nvim",
