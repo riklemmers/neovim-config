@@ -9,7 +9,11 @@ local plugins = {
 		name = "catppuccin",
 		lazy = false, -- make sure we load this during startup if it is your main colorscheme
 		priority = 1000, -- make sure to load this before all the other start plugins
-		config = function()
+		opts = function()
+			return require("plugins.configs.catppuccin-opts")
+		end,
+		config = function(_, opts)
+			require("catppuccin").setup(opts)
 			-- load the colorscheme here
 			vim.cmd([[colorscheme catppuccin-latte]])
 		end,
@@ -19,7 +23,7 @@ local plugins = {
 		"williamboman/mason.nvim",
 		lazy = false,
 		opts = {
-			ensure_installed = { "lua_ls", "gopls", "terraform-ls" },
+			ensure_installed = { "lua_ls", "gopls", "terraform-ls", "jsonls" },
 		},
 	},
 	{
@@ -66,7 +70,8 @@ local plugins = {
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
-		ft = { "go", "lua" },
+		ft = { "go", "lua", "json", "terraform", "tf" },
+		cmd = { "NullLsInfo", "NullLsLog" },
 		opts = function()
 			return require("plugins.configs.null-ls")
 		end,
@@ -93,6 +98,9 @@ local plugins = {
 			{ "<leader>fb", function() require("telescope.builtin").buffers() end },
 			{ "<leader>fh", function() require("telescope.builtin").help_tags() end },
 			{ "<leader>fr", function() require("telescope.builtin").lsp_references() end },
+			{ "<leader>fc", function() require("telescope.builtin").git_commits() end },
+			{ "<leader>fbc", function() require("telescope.builtin").git_bcommits() end },
+			{ "<leader>fgb", function() require("telescope.builtin").git_branches() end },
 		},
 	},
 
@@ -105,9 +113,15 @@ local plugins = {
 			show_current_context_start = true,
 		},
 	},
+	-- {
+	-- 	-- indenting tab/space detection
+	-- 	"tpope/vim-sleuth",
+	-- },
 	{
-		-- indenting tab/space detection
-		"tpope/vim-sleuth",
+		"nmac427/guess-indent.nvim",
+		config = function()
+			require('guess-indent').setup()
+		end,
 	},
 	{
 		"numToStr/Comment.nvim",
@@ -116,7 +130,21 @@ local plugins = {
 			c.setup()
 		end,
 	},
-	
+	{
+		"olexsmir/gopher.nvim",
+		ft = "go",
+		build = function()
+			vim.cmd [[silent! GoInstallDeps]]
+		end,
+		keys = {
+			{ "<leader>gtj", "<cmd> GoTagAdd json <CR>" },
+			{ "<leader>gty", "<cmd> GoTagAdd yaml <CR>" },
+			{ "<leader>grj", "<cmd> GoTagRm json <CR>" },
+			{ "<leader>gry", "<cmd> GoTagRm yaml <CR>" },
+			{ "<leader>ge", "<cmd> GoIfErr <CR>" },
+		},
+	},
+
 	-- GIT
 	{
 		"tpope/vim-fugitive"

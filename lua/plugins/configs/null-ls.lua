@@ -3,19 +3,20 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 local opts = {
 	sources = {
-		-- Go
 		null_ls.builtins.formatting.gofumpt,
 		null_ls.builtins.formatting.goimports_reviser,
 		null_ls.builtins.formatting.golines.with({
 			extra_args = { "-m", "128" },
 		}),
-		--null_ls.builtins.formatting.goimports,
-		--null_ls.builtins.formatting.gofmt,
 
-		-- LUA
 		null_ls.builtins.formatting.stylua.with({
 			extra_args = { "--collapse_simple_statement", "Never"},
 		}),
+		null_ls.builtins.diagnostics.jsonlint,
+		null_ls.builtins.formatting.prettier.with({
+			extra_args = { "--tab-width", "4" },
+		}),
+		null_ls.builtins.formatting.terraform_fmt,
 	},
 	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then
