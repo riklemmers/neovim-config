@@ -4,6 +4,16 @@ local plugins = {
 	{ "nvim-lua/plenary.nvim" },
 
 	-- Theme
+	-- {
+	-- 	"folke/tokyonight.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	opts = {},
+	-- 	config = function(_, opts)
+	-- 		require("tokyonight").setup(opts)
+	-- 		vim.cmd([[colorscheme tokyonight]])
+	-- 	end,
+	-- },
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
@@ -15,7 +25,7 @@ local plugins = {
 		config = function(_, opts)
 			require("catppuccin").setup(opts)
 			-- load the colorscheme here
-			vim.cmd([[colorscheme catppuccin-latte]])
+			vim.cmd([[colorscheme catppuccin-mocha]])
 		end,
 	},
 	-- LSP
@@ -23,7 +33,7 @@ local plugins = {
 		"williamboman/mason.nvim",
 		lazy = false,
 		opts = {
-			ensure_installed = { "lua_ls", "gopls", "terraform-ls", "jsonls" },
+			ensure_installed = { "lua_ls", "gopls", "terraformls", "jsonls", "tsserver", "eslint", "html", "cssls", "svelte" },
 		},
 	},
 	{
@@ -70,7 +80,7 @@ local plugins = {
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
-		ft = { "go", "lua", "json", "terraform", "tf" },
+		ft = { "go", "lua", "json", "terraform", "tf", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less", "html", "jsonc", "yaml", "markdown", "markdown.mdx", "svelte" },
 		cmd = { "NullLsInfo", "NullLsLog" },
 		opts = function()
 			return require("plugins.configs.null-ls")

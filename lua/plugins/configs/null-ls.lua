@@ -14,9 +14,10 @@ local opts = {
 		}),
 		null_ls.builtins.diagnostics.jsonlint,
 		null_ls.builtins.formatting.prettier.with({
-			extra_args = { "--tab-width", "4" },
+			extra_args = { "--tab-width", "4", "--print-width", "128" },
 		}),
 		null_ls.builtins.formatting.terraform_fmt,
+		null_ls.builtins.code_actions.eslint,
 	},
 	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then
