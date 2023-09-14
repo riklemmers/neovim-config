@@ -1,6 +1,5 @@
 local plugins = {
 
-	-- Modules
 	{ "nvim-lua/plenary.nvim" },
 
 	-- Theme
@@ -24,7 +23,6 @@ local plugins = {
 		end,
 		config = function(_, opts)
 			require("catppuccin").setup(opts)
-			-- load the colorscheme here
 			vim.cmd([[colorscheme catppuccin-mocha]])
 		end,
 	},
@@ -49,12 +47,11 @@ local plugins = {
 		event = "InsertEnter",
 		dependencies = {
 			{
-				-- snippet plugin
 				"L3MON4D3/LuaSnip",
+				build = "make install_jsregexp",
 				dependencies = "rafamadriz/friendly-snippets",
 			},
 			{
-				-- cmp sources plugins
 				"saadparwaiz1/cmp_luasnip",
 				"hrsh7th/cmp-nvim-lua",
 				"hrsh7th/cmp-nvim-lsp",
@@ -80,10 +77,12 @@ local plugins = {
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
-		ft = { "go", "lua", "json", "terraform", "tf", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less", "html", "jsonc", "yaml", "markdown", "markdown.mdx", "svelte" },
+		ft = function()
+			return require("plugins.configs.null-ls").ft()
+		end,
 		cmd = { "NullLsInfo", "NullLsLog" },
 		opts = function()
-			return require("plugins.configs.null-ls")
+			return require("plugins.configs.null-ls").opts()
 		end,
 	},
 
@@ -133,26 +132,22 @@ local plugins = {
 			show_current_context_start = true,
 		},
 	},
-	-- {
-	-- 	-- indenting tab/space detection
-	-- 	"tpope/vim-sleuth",
-	-- },
 	{
 		"nmac427/guess-indent.nvim",
-		config = function()
-			require('guess-indent').setup()
+		config = function(_, opts)
+			require('guess-indent').setup(opts)
 		end,
 	},
 	{
 		"numToStr/Comment.nvim",
-		config = function()
-			local c = require("Comment")
-			c.setup()
+		config = function(_, opts)
+			require("Comment").setup(opts)
 		end,
 	},
 	{
 		"olexsmir/gopher.nvim",
 		ft = "go",
+		cmd = { "GoInstallDeps" },
 		build = function()
 			vim.cmd [[silent! GoInstallDeps]]
 		end,

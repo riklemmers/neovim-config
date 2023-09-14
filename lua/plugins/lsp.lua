@@ -10,17 +10,30 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, opts)
 	vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
 	vim.keymap.set("n", "gr", function() vim.lsp.buf.references() end, opts)
+	vim.keymap.set("n", "rr", function() vim.lsp.buf.rename() end, opts)
 	vim.keymap.set("n", "<leader>ls", function() vim.lsp.buf.signature_help() end, opts)
 	vim.keymap.set("n", "<leader>D", function() vim.lsp.buf.type_definition() end, opts)
 	vim.keymap.set("n", "<leader>f", function() vim.diagnostic.open_float() end, opts)
 end
 
--- Specific LSP setup
+local border = {
+	{"╭", "FloatBorder"},
+	{"─", "FloatBorder"},
+	{"╮", "FloatBorder"},
+	{"│", "FloatBorder"},
+	{"╯", "FloatBorder"},
+	{"─", "FloatBorder"},
+	{"╰", "FloatBorder"},
+	{"│", "FloatBorder"},
+}
 
-lspconfig.lua_ls.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
+-- LSP settings (for overriding per client)
+local handlers =  {
+	["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border}),
+	["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border }),
+}
+
+-- Specific LSP setup
 
 lspconfig.gopls.setup({
 	cmd = { "gopls" },
@@ -39,35 +52,23 @@ lspconfig.gopls.setup({
 	},
 	capabilities = capabilities,
 	on_attach = on_attach,
+	handlers = handlers,
 })
 
 lspconfig.terraformls.setup({
 	filetypes = { "terraform" }, -- disable terraform-vars because of bug
 	capabilities = capabilities,
 	on_attach = on_attach,
+	handlers = handlers,
 })
 
-lspconfig.jsonls.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-lspconfig.tsserver.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-lspconfig.eslint.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-lspconfig.html.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-lspconfig.cssls.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-lspconfig.svelte.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
+-- Apply a default config to other LSPs
+local servers = { 'lua_ls', 'jsonls', 'tsserver', 'eslint', 'html', 'cssls', 'svelte' }
+for _, lsp in ipairs(servers) do
+	lspconfig[lsp].setup {
+		capabilities = capabilities,
+		on_attach = on_attach,
+		handlers = handlers,
+	}
+end
+
