@@ -173,6 +173,9 @@ local plugins = {
 			require('gitsigns').setup()
 		end,
 	},
+	{
+		"sindrets/diffview.nvim",
+	},
 }
 
 require("lazy").setup(plugins, opts)
