@@ -112,9 +112,10 @@ local plugins = {
 			{ "<leader>fb", function() require("telescope.builtin").buffers() end },
 			{ "<leader>fh", function() require("telescope.builtin").help_tags() end },
 			{ "<leader>fr", function() require("telescope.builtin").lsp_references() end },
-			{ "<leader>fc", function() require("telescope.builtin").git_commits() end },
-			{ "<leader>fbc", function() require("telescope.builtin").git_bcommits() end },
-			{ "<leader>fgb", function() require("telescope.builtin").git_branches() end },
+			{ "<leader>fva", function() require("telescope.builtin").git_commits() end },
+			{ "<leader>fvc", function() require("telescope.builtin").git_bcommits() end },
+			{ "<leader>fvb", function() require("telescope.builtin").git_branches() end },
+			{ "<leader>fvs", function() require("telescope.builtin").git_status() end },
 		},
 		config = function(_, opts)
 			require("telescope").setup(opts)
