@@ -40,13 +40,39 @@ lspconfig.gopls.setup({
 	root_dir = util.root_pattern("go.work", "go.mod", ".git"),
 	settings = {
 		gopls = {
+			gofumpt = true,
 			completeUnimported = true,
 			usePlaceholders = true,
-			analyses = {
-				unusedparams = true,
-				shadow = true,
-			},
 			staticcheck = true,
+			semanticTokens = true,
+			analyses = {
+				fieldalignment = true,
+				nilness = true,
+				unusedparams = true,
+				unusedwrite = true,
+				useany = true,
+				shadow = true,
+				timeformat = true,
+			},
+			codelenses = {
+				gc_details = false,
+				generate = true,
+				regenerate_cgo = true,
+				run_govulncheck = true,
+				test = false, -- legacy
+				tidy = true,
+				upgrade_dependency = true,
+				vendor = true
+			},
+			hints = {
+				assignVariableTypes = true,
+				compositeLiteralFields = true,
+				compositeLiteralTypes = true,
+				constantValues = true,
+				functionTypeParameters = true,
+				parameterNames = true,
+				rangeVariableTypes = true,
+			},
 		},
 	},
 	capabilities = capabilities,
