@@ -27,10 +27,8 @@ local border = {
 	{"│", "FloatBorder"},
 }
 
-local handlers =  {
-	["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border}),
-	["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border }),
-}
+vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
+vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border })
 
 -- Specific LSP setup
 
@@ -77,14 +75,12 @@ lspconfig.gopls.setup({
 	},
 	capabilities = capabilities,
 	on_attach = on_attach,
-	handlers = handlers,
 })
 
 lspconfig.terraformls.setup({
 	filetypes = { "terraform" }, -- disable terraform-vars because of bug
 	capabilities = capabilities,
 	on_attach = on_attach,
-	handlers = handlers,
 })
 
 -- Apply a default config to other LSPs
@@ -93,7 +89,6 @@ for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup {
 		capabilities = capabilities,
 		on_attach = on_attach,
-		handlers = handlers,
 	}
 end
 

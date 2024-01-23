@@ -60,3 +60,9 @@ brew install stylua
 ```
 brew install fd
 ```
+
+### [ripgrep](https://github.com/BurntSushi/ripgrep)
+
+```
+brew install ripgrep
+```

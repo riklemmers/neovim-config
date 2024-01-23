@@ -48,6 +48,7 @@ local plugins = {
 		dependencies = {
 			{
 				"L3MON4D3/LuaSnip",
+				version = "v2.*",
 				build = "make install_jsregexp",
 				dependencies = "rafamadriz/friendly-snippets",
 			},
@@ -76,7 +77,7 @@ local plugins = {
 		end,
 	},
 	{
-		"jose-elias-alvarez/null-ls.nvim",
+		"nvimtools/none-ls.nvim",
 		ft = function()
 			return require("plugins.configs.null-ls").ft()
 		end,
@@ -84,6 +85,17 @@ local plugins = {
 		opts = function()
 			return require("plugins.configs.null-ls").opts()
 		end,
+	},
+	{
+		"folke/trouble.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		keys = {
+			{ "<leader>tt", function() require("trouble").toggle() end },
+			{ "<leader>tw", function() require("trouble").toggle("workspace_diagnostics") end },
+			{ "<leader>td", function() require("trouble").toggle("document_diagnostics") end },
+			{ "<leader>tn", function() require("trouble").next({skip_groups = true, jump = true}) end },
+			{ "<leader>tp", function() require("trouble").previous({skip_groups = true, jump = true}) end },
+		}
 	},
 
 	-- File explorer
@@ -100,10 +112,11 @@ local plugins = {
 	},
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.2",
+		tag = "0.1.5",
 		dependencies = {
-			'nvim-lua/plenary.nvim',
-			'nvim-telescope/telescope-fzf-native.nvim',
+			{ 'nvim-lua/plenary.nvim' },
+			{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+			{ 'nvim-telescope/telescope-ui-select.nvim' },
 		},
 		keys = {
 			{ "<leader>ff", function() require("telescope.builtin").find_files() end },
@@ -116,23 +129,35 @@ local plugins = {
 			{ "<leader>fvc", function() require("telescope.builtin").git_bcommits() end },
 			{ "<leader>fvb", function() require("telescope.builtin").git_branches() end },
 			{ "<leader>fvs", function() require("telescope.builtin").git_status() end },
+			{ "<leader>ca", function() vim.lsp.buf.code_action() end },
 		},
+		opts = function()
+			return {
+				extensions = {
+					["ui-select"] = {
+						require("telescope.themes").get_cursor {
+						}
+					}
+				},
+			}
+		end,
 		config = function(_, opts)
 			require("telescope").setup(opts)
 			require("telescope").load_extension("fzf")
+			require("telescope").load_extension("ui-select")
 		end,
 	},
-	{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 
 	-- Code editing
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		opts = {
-			space_char_blankline = " ",
-			show_current_context = true,
-			show_current_context_start = true,
-		},
-	},
+	-- {
+	-- 	"lukas-reineke/indent-blankline.nvim",
+	-- 	tag = "v2.20.8",
+	-- 	opts = {
+	-- 		space_char_blankline = " ",
+	-- 		show_current_context = true,
+	-- 		show_current_context_start = true,
+	-- 	},
+	-- },
 	{
 		"nmac427/guess-indent.nvim",
 		config = function(_, opts)
@@ -176,6 +201,11 @@ local plugins = {
 	},
 	{
 		"sindrets/diffview.nvim",
+		opts = {
+			merge_tool = {
+				layout = "diff3_mixed",
+			},
+		},
 	},
 }
 

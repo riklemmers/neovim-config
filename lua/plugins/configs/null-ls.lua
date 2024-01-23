@@ -11,13 +11,16 @@ M.opts = function()
 			null_ls.builtins.formatting.golines.with({
 				extra_args = { "-m", "160" },
 			}),
+			null_ls.builtins.diagnostics.golangci_lint.with({
+				extra_args = { "-E", "bodyclose", "-E", "zerologlint", "-E", "errorlint", "-E", "exportloopref", "-E", "forcetypeassert", "-E", "gosec", "-E", "musttag", "-E", "predeclared", "-E", "sqlclosecheck", "-E", "unconvert", "-E", "usestdlibvars" },
+			}),
 
 			null_ls.builtins.formatting.stylua.with({
 				extra_args = { "--collapse_simple_statement", "Never"},
 			}),
 			null_ls.builtins.diagnostics.jsonlint,
 			null_ls.builtins.formatting.prettier.with({
-				extra_args = { "--tab-width", "4", "--print-width", "128" },
+				extra_args = { "--tab-width", "2", "--print-width", "128" },
 			}),
 			null_ls.builtins.formatting.terraform_fmt,
 			null_ls.builtins.code_actions.eslint,
