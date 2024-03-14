@@ -84,7 +84,7 @@ lspconfig.terraformls.setup({
 })
 
 -- Apply a default config to other LSPs
-local servers = { 'lua_ls', 'jsonls', 'tsserver', 'eslint', 'html', 'cssls', 'svelte' }
+local servers = { 'lua_ls', 'jsonls', 'tsserver', 'eslint', 'html', 'cssls', 'svelte', 'pyright' }
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup {
 		capabilities = capabilities,

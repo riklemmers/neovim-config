@@ -24,6 +24,7 @@ M.opts = function()
 			}),
 			null_ls.builtins.formatting.terraform_fmt,
 			null_ls.builtins.code_actions.eslint,
+			null_ls.builtins.diagnostics.pylint,
 		},
 		on_attach = function(client, bufnr)
 			if client.supports_method("textDocument/formatting") then
@@ -45,7 +46,7 @@ M.opts = function()
 end
 
 M.ft = function()
-	return { "go", "lua", "json", "terraform", "tf", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less", "html", "jsonc", "yaml", "markdown", "markdown.mdx", "svelte" }
+	return { "go", "lua", "json", "terraform", "tf", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less", "html", "jsonc", "yaml", "markdown", "markdown.mdx", "svelte", "python" }
 end
 
 return M

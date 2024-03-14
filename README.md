@@ -66,3 +66,9 @@ brew install fd
 ```
 brew install ripgrep
 ```
+
+### [delve](https://github.com/go-delve/delve)
+
+```
+go install github.com/go-delve/delve/cmd/dlv@latest
+```

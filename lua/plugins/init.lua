@@ -2,17 +2,6 @@ local plugins = {
 
 	{ "nvim-lua/plenary.nvim" },
 
-	-- Theme
-	-- {
-	-- 	"folke/tokyonight.nvim",
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	opts = {},
-	-- 	config = function(_, opts)
-	-- 		require("tokyonight").setup(opts)
-	-- 		vim.cmd([[colorscheme tokyonight]])
-	-- 	end,
-	-- },
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
@@ -31,7 +20,7 @@ local plugins = {
 		"williamboman/mason.nvim",
 		lazy = false,
 		opts = {
-			ensure_installed = { "lua_ls", "gopls", "terraformls", "jsonls", "tsserver", "eslint", "html", "cssls", "svelte" },
+			ensure_installed = { "lua_ls", "gopls", "terraformls", "jsonls", "tsserver", "eslint", "html", "cssls", "svelte", "pyright", "pylint" },
 		},
 	},
 	{
@@ -149,15 +138,6 @@ local plugins = {
 	},
 
 	-- Code editing
-	-- {
-	-- 	"lukas-reineke/indent-blankline.nvim",
-	-- 	tag = "v2.20.8",
-	-- 	opts = {
-	-- 		space_char_blankline = " ",
-	-- 		show_current_context = true,
-	-- 		show_current_context_start = true,
-	-- 	},
-	-- },
 	{
 		"nmac427/guess-indent.nvim",
 		config = function(_, opts)
@@ -207,8 +187,58 @@ local plugins = {
 			},
 		},
 	},
+
+	-- Debugger
+	{
+		"mfussenegger/nvim-dap",
+		ft = "go",
+	},
+	{
+		"leoluz/nvim-dap-go",
+		ft = "go",
+		dependencies = {
+			"mfussenegger/nvim-dap",
+		},
+		keys = {
+			{ "<leader>dt", function() require("dap").toggle_breakpoint() end },
+			{ "<leader>dc", function() require("dap").continue() end },
+			{ "<F10>", function() require("dap").step_over() end },
+			{ "<F11>", function() require("dap").step_into() end },
+			{ "<F12>", function() require("dap").step_out() end },
+			{ "<leader>do", function() require("dap").repl.open() end },
+			{ "<leader>dl", function() require("dap").run_last() end },
+			{ "<leader>dus", function()
+				local widgets = require("dap.ui.widgets");
+				local sidebar = widgets.sidebar(widgets.scopes);
+				sidebar.open();
+			end },
+			{ "<leader>dh", function() require('dap.ui.widgets').hover() end },
+			{ "<leader>df", function()
+				local widgets = require('dap.ui.widgets');
+				widgets.centered_float(widgets.frames);
+			end },
+			{ "<leader>ds", function()
+				local widgets = require('dap.ui.widgets');
+				widgets.centered_float(widgets.scopes);
+			end },
+		},
+		config = function(_, opts)
+			require("dap-go").setup(opts)
+		end,
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		ft = "go",
+		keys = {
+			{ "dut", function() require("dapui").toggle() end },
+		},
+		config = function(_, opts)
+			require("dapui").setup(opts)
+		end,
+	},
 }
 
+local opts = {}
 require("lazy").setup(plugins, opts)
 
 require("plugins.lsp")
