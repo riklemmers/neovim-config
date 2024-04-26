@@ -18,13 +18,13 @@ M.opts = function()
 			null_ls.builtins.formatting.stylua.with({
 				extra_args = { "--collapse_simple_statement", "Never"},
 			}),
-			null_ls.builtins.diagnostics.jsonlint,
 			null_ls.builtins.formatting.prettier.with({
 				extra_args = { "--tab-width", "2", "--print-width", "128" },
 			}),
 			null_ls.builtins.formatting.terraform_fmt,
-			null_ls.builtins.code_actions.eslint,
 			null_ls.builtins.diagnostics.pylint,
+
+			require("none-ls.code_actions.eslint"),
 		},
 		on_attach = function(client, bufnr)
 			if client.supports_method("textDocument/formatting") then
@@ -47,6 +47,10 @@ end
 
 M.ft = function()
 	return { "go", "lua", "json", "terraform", "tf", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less", "html", "jsonc", "yaml", "markdown", "markdown.mdx", "svelte", "python" }
+end
+
+M.sources = function()
+	require("none-ls.code_actions.eslint");
 end
 
 return M

@@ -72,3 +72,9 @@ brew install ripgrep
 ```
 go install github.com/go-delve/delve/cmd/dlv@latest
 ```
+
+### dotnet
+
+```
+brew install dotnet
+```

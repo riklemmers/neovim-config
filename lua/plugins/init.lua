@@ -20,7 +20,7 @@ local plugins = {
 		"williamboman/mason.nvim",
 		lazy = false,
 		opts = {
-			ensure_installed = { "lua_ls", "gopls", "terraformls", "jsonls", "tsserver", "eslint", "html", "cssls", "svelte", "pyright", "pylint" },
+			ensure_installed = { "lua_ls", "gopls", "terraformls", "jsonls", "tsserver", "eslint", "html", "cssls", "svelte", "pyright", "pylint", "bicep-lsp", "lemminx" },
 		},
 	},
 	{
@@ -67,6 +67,9 @@ local plugins = {
 	},
 	{
 		"nvimtools/none-ls.nvim",
+		dependencies = {
+			"nvimtools/none-ls-extras.nvim",
+		},
 		ft = function()
 			return require("plugins.configs.null-ls").ft()
 		end,
@@ -228,6 +231,7 @@ local plugins = {
 	},
 	{
 		"rcarriga/nvim-dap-ui",
+		dependencies = { "nvim-neotest/nvim-nio" },
 		ft = "go",
 		keys = {
 			{ "dut", function() require("dapui").toggle() end },

@@ -83,8 +83,15 @@ lspconfig.terraformls.setup({
 	on_attach = on_attach,
 })
 
+lspconfig.bicep.setup({
+	filetypes = { "bicep" },
+	cmd = { "/Users/rik/.local/share/nvim/mason/bin/bicep-lsp" },
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
 -- Apply a default config to other LSPs
-local servers = { 'lua_ls', 'jsonls', 'tsserver', 'eslint', 'html', 'cssls', 'svelte', 'pyright' }
+local servers = { 'lua_ls', 'jsonls', 'tsserver', 'eslint', 'html', 'cssls', 'svelte', 'pyright', 'lemminx' }
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup {
 		capabilities = capabilities,
