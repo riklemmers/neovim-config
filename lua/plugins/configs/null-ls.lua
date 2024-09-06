@@ -23,6 +23,7 @@ M.opts = function()
 			}),
 			null_ls.builtins.formatting.terraform_fmt,
 			null_ls.builtins.diagnostics.pylint,
+			null_ls.builtins.formatting.black,
 
 			require("none-ls.code_actions.eslint"),
 		},

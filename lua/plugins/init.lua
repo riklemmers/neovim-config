@@ -20,7 +20,7 @@ local plugins = {
 		"williamboman/mason.nvim",
 		lazy = false,
 		opts = {
-			ensure_installed = { "lua_ls", "gopls", "terraformls", "jsonls", "tsserver", "eslint", "html", "cssls", "svelte", "pyright", "pylint", "bicep-lsp", "lemminx" },
+			ensure_installed = { "lua_ls", "gopls", "terraformls", "jsonls", "ts_ls", "eslint", "html", "cssls", "svelte", "pyright", "pylint", "bicep-lsp", "lemminx" },
 		},
 	},
 	{
@@ -239,6 +239,13 @@ local plugins = {
 		config = function(_, opts)
 			require("dapui").setup(opts)
 		end,
+	},
+
+	-- Markdown viewer
+	{
+		"ellisonleao/glow.nvim",
+		config = true,
+		cmd = "Glow",
 	},
 }
 
