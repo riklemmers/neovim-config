@@ -16,7 +16,8 @@ local M = {
 		"jsonc",
 		"terraform",
 		"yaml",
-		"python"
+		"python",
+		"php"
 	},
 	sync_install = false,
 	highlight = { enable = true },

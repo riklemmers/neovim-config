@@ -26,6 +26,9 @@ opt.termguicolors = true
 opt.list = true
 opt.listchars:append("space:⋅")
 
+-- compare
+opt.diffopt = opt.diffopt + "iwhite"
+
 -- add binaries installed by mason.nvim to path
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 

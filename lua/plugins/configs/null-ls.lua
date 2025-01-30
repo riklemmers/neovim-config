@@ -24,6 +24,8 @@ M.opts = function()
 			null_ls.builtins.formatting.terraform_fmt,
 			null_ls.builtins.diagnostics.pylint,
 			null_ls.builtins.formatting.black,
+			null_ls.builtins.diagnostics.phpstan,
+			null_ls.builtins.diagnostics.phpcs,
 
 			require("none-ls.code_actions.eslint"),
 		},
@@ -47,7 +49,7 @@ M.opts = function()
 end
 
 M.ft = function()
-	return { "go", "lua", "json", "terraform", "tf", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less", "html", "jsonc", "yaml", "markdown", "markdown.mdx", "svelte", "python" }
+	return { "go", "lua", "json", "terraform", "tf", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less", "html", "jsonc", "yaml", "markdown", "markdown.mdx", "svelte", "python", "php" }
 end
 
 M.sources = function()
